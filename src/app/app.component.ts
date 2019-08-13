@@ -14,7 +14,9 @@ import { ApolloQueryResult } from 'apollo-client';
 })
 export class AppComponent implements OnInit {
 
-  private stockCodes: string[];
+  public stockCodes: string[];
+  public properties: string[];
+
 
   public lineChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
@@ -97,6 +99,8 @@ export class AppComponent implements OnInit {
   constructor(private apollo: Apollo) { }
 
   ngOnInit() {
+
+    // Get stock codes
     this.apollo
       .watchQuery({
         query: gql`
@@ -106,9 +110,24 @@ export class AppComponent implements OnInit {
         `,
       })
       .valueChanges.subscribe((result: ApolloQueryResult<{ allStockCodes: string[] }>) => {
-        this.stockCodes;
+        this.stockCodes = result.data.allStockCodes;
+      });
+
+    // Get properties
+    this.apollo
+      .watchQuery({
+        query: gql`
+          {
+            allProperties
+          }
+        `,
+      })
+      .valueChanges.subscribe((result: ApolloQueryResult<{ allProperties: string[] }>) => {
+        this.properties = result.data.allProperties;
       });
   }
+
+
 
   public randomize(): void {
     for (let i = 0; i < this.lineChartData.length; i++) {
