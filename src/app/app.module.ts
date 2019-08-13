@@ -7,6 +7,10 @@ import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
+import { MatChipsModule, MatIconModule, MatAutocompleteModule, MatFormFieldModule } from "@angular/material";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +22,14 @@ import { environment } from 'src/environments/environment';
     BrowserModule,
     HttpClientModule,
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [{
     provide: APOLLO_OPTIONS,
