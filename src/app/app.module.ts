@@ -10,11 +10,13 @@ import { environment } from 'src/environments/environment';
 import { MatChipsModule, MatIconModule, MatAutocompleteModule, MatFormFieldModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChipsComponent } from './components/chips/chips.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChipsComponent
   ],
   imports: [
     BrowserModule,

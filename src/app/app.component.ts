@@ -1,15 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { ApolloQueryResult } from 'apollo-client';
-import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
 
 @Component({
@@ -17,25 +12,15 @@ import { map, startWith } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit  {
 
-  public stockCodes: string[];
-  public properties: string[];
+  public stockCodes: string[] = [];
+  public sampleStocks: string[] = [];
+  public choosenStocks: Array<string>;
 
-
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  fruitCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-
-  @ViewChild('fruitInput', { read: false }) fruitInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', { read: false }) matAutocomplete: MatAutocomplete;
-
-
+  public allProperties: string[] = [];
+  public sampleProperty: string[] = [];
+  public choosenProperties: string[] = [];
 
 
 
@@ -118,51 +103,9 @@ export class AppComponent implements OnInit {
   @ViewChild(BaseChartDirective, { read: true }) chart: BaseChartDirective;
 
   constructor(private apollo: Apollo) {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
   }
 
-  add(event: MatChipInputEvent): void {
-    // Add fruit only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
-    if (!this.matAutocomplete.isOpen) {
-      const input = event.input;
-      const value = event.value;
 
-      // Add our fruit
-      if ((value || '').trim()) {
-        this.fruits.push(value.trim());
-      }
-
-      // Reset the input value
-      if (input) {
-        input.value = '';
-      }
-
-      this.fruitCtrl.setValue(null);
-    }
-  }
-
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
-  }
 
   ngOnInit() {
 
@@ -177,6 +120,7 @@ export class AppComponent implements OnInit {
       })
       .valueChanges.subscribe((result: ApolloQueryResult<{ allStockCodes: string[] }>) => {
         this.stockCodes = result.data.allStockCodes;
+        this.sampleStocks = this.stockCodes.filter(a => a == "PETR4");
       });
 
     // Get properties
@@ -189,8 +133,17 @@ export class AppComponent implements OnInit {
         `,
       })
       .valueChanges.subscribe((result: ApolloQueryResult<{ allProperties: string[] }>) => {
-        this.properties = result.data.allProperties;
+        this.allProperties = result.data.allProperties;
+        this.sampleProperty = this.allProperties.filter(a => a == "score");
       });
+  }
+
+  public addStock(event) {
+    this.choosenStocks = event;
+  }
+  
+  public addProperty(event) {
+    this.choosenProperties = event;
   }
 
 
