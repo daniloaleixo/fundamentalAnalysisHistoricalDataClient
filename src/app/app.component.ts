@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import * as _ from "lodash";
 import { Apollo } from 'apollo-angular';
 import { ApolloQueryResult } from 'apollo-client';
 import { ChartDataSets, ChartOptions } from 'chart.js';
@@ -27,48 +28,19 @@ export class AppComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
     { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-    { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
   ];
   public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
-      xAxes: [{}],
       yAxes: [
         {
           id: 'y-axis-0',
           position: 'left',
-        },
-        {
-          id: 'y-axis-1',
-          position: 'right',
-          gridLines: {
-            color: 'rgba(255,0,0,0.3)',
-          },
-          ticks: {
-            fontColor: 'red',
-          }
         }
       ]
     },
-    annotation: {
-      annotations: [
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: 'March',
-          borderColor: 'orange',
-          borderWidth: 2,
-          label: {
-            enabled: true,
-            fontColor: 'orange',
-            content: 'LineAnno'
-          }
-        },
-      ],
-    },
+    annotation: {},
   };
   public lineChartType = 'line';
 
@@ -147,6 +119,7 @@ export class AppComponent implements OnInit {
           compare(ids: [${allIDs}]) {
             ${this.choosenProperties.map(a => `${a}\n`)}
             timestamp
+            stockCode
           }
         }
         `,
@@ -161,6 +134,39 @@ export class AppComponent implements OnInit {
 
     stocks = stocks.map(s => ({ ...s, timestamp: new Date(Number(s.timestamp)) }));
     console.log(stocks);
+
+    const hashOfDates: { [date: string]: Array<IStock> } = {};
+    stocks.forEach(s => {
+      const date: string = `${s.timestamp.getFullYear()}/${s.timestamp.getMonth() + 1}/${s.timestamp.getDate()}`;
+      if (hashOfDates[date]) hashOfDates[date].push(s);
+      else hashOfDates[date] = [s];
+    });
+
+
+    console.log(hashOfDates);
+
+    this.lineChartLabels = Object.keys(hashOfDates)
+      .sort((a, b) => new Date(a) > new Date(b) ? 1 : -1);
+
+    // public lineChartData: ChartDataSets[] = [
+    //   { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+
+    this.lineChartData = _.flatten(this.choosenStocks.map(s =>
+      this.choosenProperties.map(p => {
+        const chartData: ChartDataSets = {
+          data: this.lineChartLabels
+            .map(date => {
+              const x = hashOfDates[date as string]
+                .filter(stock => stock.stockCode == s)
+                .map(stock => stock[p]);
+              return x && x.length > 0 ? x.pop() : 0;
+            }),
+          label: `${s}--${p}`
+        };
+
+        return chartData;
+      })
+    ));
 
   }
 
