@@ -140,15 +140,17 @@ export class AppComponent implements OnInit  {
 
   public addStock(event) {
     this.choosenStocks = event;
+    this.query();
   }
   
   public addProperty(event) {
     this.choosenProperties = event;
+    this.query();
   }
 
 
 
-  
+
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
@@ -156,6 +158,25 @@ export class AppComponent implements OnInit  {
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
+  }
+
+
+  public query() {
+    const allIDs = `${this.choosenStocks.map(a => `"${a}"`).join(",")}`;
+    console.log(this.choosenStocks, allIDs);
+    this.apollo
+      .watchQuery({
+        query: gql`
+        {
+          compare(ids: [${allIDs}]) {
+            precoSobreAtivo
+          }
+        }
+        `,
+      })
+      .valueChanges.subscribe((result: ApolloQueryResult<{ allProperties: string[] }>) => {
+        console.log(result);
+      });
   }
 
 
