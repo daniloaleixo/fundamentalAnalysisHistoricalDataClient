@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       yAxes: [
         {
