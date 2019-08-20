@@ -1,11 +1,23 @@
-<mat-toolbar color="primary">BOVESPA Fundamental Data Analysis</mat-toolbar>
+<mat-toolbar color="primary">
+  BOVESPA Fundamental Data Analysis
+  <a href="https://github.com/daniloaleixo/fundamentalAnalysisHistoricalDataClient">
+    <img style="width: 30px; padding: 20px; padding-top: 25px; filter: brightness(0) invert(1);" src="../assets/github-logo.png"
+      alt="">
+  </a>
+</mat-toolbar>
 
 <div class="container">
 
-  <app-chips placeholder="Choose the stock..." [autocompleteValues]="stockCodes" [arrayValues]="sampleStocks"
+  <div style="margin-bottom: 50px; color: #000000b8">
+    <p>Olá</p>
+    <p>Estou montando a primeira base histórica de indicadores fundamentalistas totalmente open source, abaixo dou a
+      possibilidade de filtrar alguns indicadores e compará-los com outras ações.</p>
+  </div>
+
+  <app-chips placeholder="Escolha uma ação..." [autocompleteValues]="stockCodes" [arrayValues]="sampleStocks"
     (arrayValuesStream)="addStock($event)"></app-chips>
 
-  <app-chips placeholder="Choose the property..." [autocompleteValues]="allProperties" [arrayValues]="sampleProperty"
+  <app-chips placeholder="Escolha um valor para comparar..." [autocompleteValues]="allProperties" [arrayValues]="sampleProperty"
     (arrayValuesStream)="addProperty($event)"></app-chips>
 
 
@@ -15,8 +27,8 @@
     <div class="flex-item">
       <div style="display: block;">
         <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins"
-          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+           [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
       </div>
     </div>
   </div>

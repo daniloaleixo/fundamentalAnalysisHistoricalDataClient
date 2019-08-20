@@ -13,8 +13,8 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class ChipsComponent implements OnInit {
 
-  private formControl = new FormControl();
-  private filteredOutput: Observable<string[]>;
+  public formControl = new FormControl();
+  public filteredOutput: Observable<string[]>;
 
   @Input() placeholder: string;
   @Input() arrayValues: string[] = [];
