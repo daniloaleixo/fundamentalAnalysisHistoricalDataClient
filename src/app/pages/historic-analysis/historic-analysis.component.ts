@@ -5,20 +5,15 @@ import { ApolloQueryResult } from 'apollo-client';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import gql from 'graphql-tag';
 import { BaseChartDirective, Label } from 'ng2-charts';
-import { IStock } from './interfaces/response.interface';
+import { IStock } from '../../interfaces/response.interface';
 
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-historic-analysis',
+  templateUrl: './historic-analysis.component.html',
+  styleUrls: ['./historic-analysis.component.scss']
 })
-export class AppComponent implements OnInit {
-
-  navLinks = [{
-    label: 'First',
-    path: "/first"
-  }];
+export class HistoricAnalysisComponent implements OnInit {
 
   public stockCodes: string[] = [];
   public sampleStocks: string[] = [];

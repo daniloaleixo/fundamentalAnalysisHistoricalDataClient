@@ -7,16 +7,21 @@ import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import { MatChipsModule, MatIconModule, MatAutocompleteModule, MatFormFieldModule, MatToolbarModule } from "@angular/material";
+import { MatChipsModule, MatIconModule, MatAutocompleteModule, MatFormFieldModule, MatToolbarModule, MatTabsModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChipsComponent } from './components/chips/chips.component';
+import { RouterModule } from "@angular/router";
+import { HistoricAnalysisComponent } from './pages/historic-analysis/historic-analysis.component';
+import { RecentStocksComponent } from './pages/recent-stocks/recent-stocks.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChipsComponent
+    ChipsComponent,
+    HistoricAnalysisComponent,
+    RecentStocksComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,12 @@ import { ChipsComponent } from './components/chips/chips.component';
     MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTabsModule,
+    RouterModule.forRoot([
+      { path: '', component: HistoricAnalysisComponent },
+      { path: 'products/:productId', component: HistoricAnalysisComponent },
+    ])
   ],
   providers: [{
     provide: APOLLO_OPTIONS,
