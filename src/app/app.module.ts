@@ -40,8 +40,9 @@ import { RecentStocksComponent } from './pages/recent-stocks/recent-stocks.compo
     BrowserAnimationsModule,
     MatTabsModule,
     RouterModule.forRoot([
-      { path: '', component: HistoricAnalysisComponent },
-      { path: 'products/:productId', component: HistoricAnalysisComponent },
+      { path: 'recent', component: RecentStocksComponent },
+      { path: 'historic', component: HistoricAnalysisComponent },
+      { path: '',   redirectTo: '/recent', pathMatch: 'full' },
     ])
   ],
   providers: [{

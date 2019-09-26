@@ -15,10 +15,16 @@ import { IStock } from './interfaces/response.interface';
 })
 export class AppComponent implements OnInit {
 
-  navLinks = [{
-    label: 'First',
-    path: "/first"
-  }];
+  navLinks = [
+    {
+      label: 'Análise Fundamentalista',
+      path: "/recent"
+    },
+    {
+      label: 'Análise Histórica',
+      path: "/historic"
+    },
+  ];
 
   public stockCodes: string[] = [];
   public sampleStocks: string[] = [];
