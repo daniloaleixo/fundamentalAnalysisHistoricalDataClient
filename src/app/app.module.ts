@@ -7,7 +7,7 @@ import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import { MatChipsModule, MatIconModule, MatAutocompleteModule, MatFormFieldModule, MatToolbarModule, MatTabsModule } from "@angular/material";
+import { MatChipsModule, MatIconModule, MatAutocompleteModule, MatFormFieldModule, MatToolbarModule, MatTabsModule, MatTableModule  } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChipsComponent } from './components/chips/chips.component';
@@ -39,6 +39,7 @@ import { RecentStocksComponent } from './pages/recent-stocks/recent-stocks.compo
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatTabsModule,
+    MatTableModule,
     RouterModule.forRoot([
       { path: 'recent', component: RecentStocksComponent },
       { path: 'historic', component: HistoricAnalysisComponent },
