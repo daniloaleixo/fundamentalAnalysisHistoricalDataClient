@@ -17,6 +17,7 @@ export class RecentStocksComponent implements OnInit {
   public displayedColumns: string[] = ["stockCode", "score", "stockPrice", "patrimonioLiquido", "liquidezCorrente", "ROE", "divSobrePatrimonio", "crescimentoCincoAnos", "precoSobreVP", "precoSobreLucro", "dividendos", "PSR", "precoSobreAtivo", "precoSobreCapitalGiro", "precoSobreEBIT", "precoSobreAtivoCirculante", "EVSobreEBIT", "margemEBIT", "margemLiquida", "ROIC", "liquidezDoisMeses", "timestamp",
   ];
   public dataSource;
+  public tableHeight;
 
 
   @ViewChild(MatSort, { read: true }) sort: MatSort;
@@ -26,7 +27,8 @@ export class RecentStocksComponent implements OnInit {
 
 
   constructor(private apollo: Apollo) {
-
+    const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    this.tableHeight = h - 48 - 64 - 2;
   }
 
 
