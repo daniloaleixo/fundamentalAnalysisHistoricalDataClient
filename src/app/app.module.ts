@@ -44,6 +44,7 @@ import { RecentStocksComponent } from './pages/recent-stocks/recent-stocks.compo
     MatTabsModule,
     MatTableModule,
     MatSortModule,
+    
     RouterModule.forRoot([
       { path: 'recent', component: RecentStocksComponent },
       { path: 'historic', component: HistoricAnalysisComponent },

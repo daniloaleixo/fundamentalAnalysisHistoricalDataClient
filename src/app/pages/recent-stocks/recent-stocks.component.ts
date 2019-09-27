@@ -17,10 +17,10 @@ export class RecentStocksComponent implements OnInit {
   public displayedColumns: string[] = ["stockCode", "score", "stockPrice", "patrimonioLiquido", "liquidezCorrente", "ROE", "divSobrePatrimonio", "crescimentoCincoAnos", "precoSobreVP", "precoSobreLucro", "dividendos", "PSR", "precoSobreAtivo", "precoSobreCapitalGiro", "precoSobreEBIT", "precoSobreAtivoCirculante", "EVSobreEBIT", "margemEBIT", "margemLiquida", "ROIC", "liquidezDoisMeses", "timestamp",
   ];
   public dataSource;
-  public tableHeight;
+  public tableHeight: number;
 
 
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
 
   public allProperties: string[] = [];
