@@ -1,18 +1,25 @@
-<div class="container" *ngIf="dataSource">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <!-- stockCode Column -->
-    <span *ngFor="let item of displayedColumns">
+<div class="example-container mat-elevation-z8" *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource" matSort>
 
-      <ng-container matColumnDef="{{item}}">
+    <!-- Name Column -->
+    <ng-container matColumnDef="stockCode" sticky>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> stockCode </th>
+      <td mat-cell *matCellDef="let element"> {{element.stockCode}} </td>
+    </ng-container>
+
+    <!-- Each other Column -->
+    <!-- <span *ngFor="let item of displayedColumns"> -->
+
+      <ng-container *ngFor="let item of displayedColumns.slice(1)" matColumnDef="{{item}}">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{item}} </th>
         <td mat-cell *matCellDef="let row"> {{row[item]}} </td>
       </ng-container>
 
-    </span>
+    <!-- </span> -->
 
 
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 

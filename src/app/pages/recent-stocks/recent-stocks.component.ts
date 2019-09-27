@@ -6,14 +6,6 @@ import { ApolloQueryResult } from 'apollo-client';
 import { IStock } from '../../interfaces/response.interface';
 import gql from 'graphql-tag';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-
 @Component({
   selector: 'app-recent-stocks',
   templateUrl: './recent-stocks.component.html',
