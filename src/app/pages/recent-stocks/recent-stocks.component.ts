@@ -66,8 +66,8 @@ export class RecentStocksComponent implements OnInit {
       .valueChanges
       .subscribe(
         (result: ApolloQueryResult<{ recentStocks: IStock[] }>) => {
-          console.log(result.data.recentStocks);
-          this.dataSource = new MatTableDataSource(result.data.recentStocks);
+          const stocks: IStock[] = result.data.recentStocks.sort((a, b) => b.score - a.score);
+          this.dataSource = new MatTableDataSource(stocks);
           this.dataSource.sort = this.sort;
         }
       );
