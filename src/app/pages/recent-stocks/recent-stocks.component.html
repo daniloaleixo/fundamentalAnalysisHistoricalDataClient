@@ -1,0 +1,27 @@
+<div class="example-container mat-elevation-z8" [style.height.px]="tableHeight">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="stockCode" sticky>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> stockCode </th>
+      <td mat-cell *matCellDef="let element"> {{element.stockCode}} </td>
+    </ng-container>
+
+    <!-- Each other Column -->
+    <!-- <span *ngFor="let item of displayedColumns"> -->
+
+      <ng-container *ngFor="let item of displayedColumns.slice(1)" matColumnDef="{{item}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{item}} </th>
+        <td mat-cell *matCellDef="let row"> {{row[item]}} </td>
+      </ng-container>
+
+    <!-- </span> -->
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+    [style.background]="row.score >= 7 ? '#defbde' : 'white'"></tr>
+  </table>
+
+</div>

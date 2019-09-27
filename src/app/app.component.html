@@ -1,35 +1,28 @@
 <mat-toolbar color="primary">
   BOVESPA Fundamental Data Analysis
   <a href="https://github.com/daniloaleixo/fundamentalAnalysisHistoricalDataClient">
-    <img style="width: 30px; padding: 20px; padding-top: 25px; filter: brightness(0) invert(1);" src="../assets/github-logo.png"
-      alt="">
+    <img style="width: 30px; padding: 20px; padding-top: 25px; filter: brightness(0) invert(1);"
+      src="../assets/github-logo.png" alt="">
   </a>
 </mat-toolbar>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+    [active]="rla.isActive">
+    {{link.label}}
+  </a>
+</nav>
 
-<div class="container">
+<router-outlet></router-outlet>
 
-  <div style="margin-bottom: 50px; color: #000000b8">
-    <p>Olá</p>
-    <p>Estou montando a primeira base histórica de indicadores fundamentalistas totalmente open source, abaixo dou a
-      possibilidade de filtrar alguns indicadores e compará-los com outras ações.</p>
-  </div>
-
-  <app-chips placeholder="Escolha uma ação..." [autocompleteValues]="stockCodes" [arrayValues]="sampleStocks"
-    (arrayValuesStream)="addStock($event)"></app-chips>
-
-  <app-chips placeholder="Escolha um valor para comparar..." [autocompleteValues]="allProperties" [arrayValues]="sampleProperty"
-    (arrayValuesStream)="addProperty($event)"></app-chips>
+<!-- <a mat-tab-link *ngFor="let link of links"
+(click)="activeLink = link"
+[active]="activeLink == link"> {{link}} </a>
+<a mat-tab-link disabled>Disabled Link</a> -->
+<!-- <mat-tab-group>
+  <mat-tab label="First"> Content 1 </mat-tab>
+  <mat-tab label="Análise Histórica"> -->
 
 
-
-  <!-- Chart -->
-  <div class="flex">
-    <div class="flex-item">
-      <div style="display: block;">
-        <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-           [chartType]="lineChartType" (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- </mat-tab>
+  <mat-tab label="Third"> Content 3 </mat-tab>
+</mat-tab-group> -->
