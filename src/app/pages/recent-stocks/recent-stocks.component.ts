@@ -13,6 +13,8 @@ import gql from 'graphql-tag';
 })
 export class RecentStocksComponent implements OnInit {
 
+  public showLoading: boolean;
+
   // Table
   public displayedColumns: string[] = ["stockCode", "score", "stockPrice", "patrimonioLiquido", "liquidezCorrente", "ROE", "divSobrePatrimonio", "crescimentoCincoAnos", "precoSobreVP", "precoSobreLucro", "dividendos", "PSR", "precoSobreAtivo", "precoSobreCapitalGiro", "precoSobreEBIT", "precoSobreAtivoCirculante", "EVSobreEBIT", "margemEBIT", "margemLiquida", "ROIC", "liquidezDoisMeses", "timestamp",
   ];
@@ -27,6 +29,8 @@ export class RecentStocksComponent implements OnInit {
 
 
   constructor(private apollo: Apollo) {
+    this.showLoading = true;
+
     const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     this.tableHeight = h - 48 - 64 - 2;
   }
@@ -69,6 +73,7 @@ export class RecentStocksComponent implements OnInit {
           const stocks: IStock[] = result.data.recentStocks.sort((a, b) => b.score - a.score);
           this.dataSource = new MatTableDataSource(stocks);
           this.dataSource.sort = this.sort;
+          this.showLoading = false;
         }
       );
   }

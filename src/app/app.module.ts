@@ -9,7 +9,8 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { 
   MatChipsModule, MatIconModule, MatAutocompleteModule, MatSortModule,
-  MatFormFieldModule, MatToolbarModule, MatTabsModule, MatTableModule
+  MatFormFieldModule, MatToolbarModule, MatTabsModule, MatTableModule,
+  MatProgressBarModule
  } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,6 +45,7 @@ import { RecentStocksComponent } from './pages/recent-stocks/recent-stocks.compo
     MatTabsModule,
     MatTableModule,
     MatSortModule,
+    MatProgressBarModule,
     
     RouterModule.forRoot([
       { path: 'recent', component: RecentStocksComponent },

@@ -15,6 +15,8 @@ import { IStock } from '../../interfaces/response.interface';
 })
 export class HistoricAnalysisComponent implements OnInit {
 
+  public showLoading: boolean;
+
   public stockCodes: string[] = [];
   public sampleStocks: string[] = [];
   public choosenStocks: Array<string>;
@@ -48,6 +50,7 @@ export class HistoricAnalysisComponent implements OnInit {
   @ViewChild(BaseChartDirective, { read: true }) chart: BaseChartDirective;
 
   constructor(private apollo: Apollo) {
+    this.showLoading = true;
   }
 
 
@@ -68,6 +71,8 @@ export class HistoricAnalysisComponent implements OnInit {
         this.sampleStocks = this.stockCodes.filter(a => a == "PETR4");
         this.sampleStocks.map(a => this.choosenStocks.push(a));
         this._query();
+
+        this.releaseInitialLoading();
       });
 
     // Get properties
@@ -84,6 +89,8 @@ export class HistoricAnalysisComponent implements OnInit {
         this.sampleProperty = this.allProperties.filter(a => a == "score");
         this.sampleProperty.map(a => this.choosenProperties.push(a));
         this._query();
+
+        this.releaseInitialLoading();
       });
   }
 
@@ -95,6 +102,11 @@ export class HistoricAnalysisComponent implements OnInit {
   public addProperty(event) {
     this.choosenProperties = event;
     this._query();
+  }
+
+  private releaseInitialLoading() {
+    if (this.allProperties && this.allProperties.length > 0 && this.stockCodes && this.stockCodes.length > 0)
+      this.showLoading = false;
   }
 
 

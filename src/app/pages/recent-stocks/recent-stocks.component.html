@@ -1,3 +1,5 @@
+<mat-progress-bar *ngIf="showLoading" mode="query"></mat-progress-bar>
+
 <div class="example-container mat-elevation-z8" [style.height.px]="tableHeight">
   <table mat-table [dataSource]="dataSource" matSort>
 
