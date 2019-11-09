@@ -145,7 +145,11 @@ export class HistoricAnalysisComponent implements OnInit {
   private _buildChart(stocks: IStock[]): void {
     // Make the date right
 
-    stocks = stocks.map(s => ({ ...s, timestamp: new Date(Number(s.timestamp)) }));
+    stocks = stocks.map(s => ({
+      ...s,
+      timestamp: (s.timestamp as any).indexOf(":") < 0 ?
+        new Date(Number(s.timestamp)) : new Date(s.timestamp)
+    }));
     console.log(stocks);
 
     const hashOfDates: { [date: string]: Array<IStock> } = {};
