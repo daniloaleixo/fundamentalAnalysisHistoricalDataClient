@@ -13,17 +13,22 @@ import { IStock } from '../../interfaces/response.interface';
 })
 export class StockComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router, private apollo: Apollo) { }
+  public stock: IStock;
+
+  constructor(private route: ActivatedRoute, private apollo: Apollo) { }
 
   ngOnInit() {
-    // this.route.paramMap
+    this.route.params.subscribe((paramMap) => this.getStockInfo(paramMap.stockCode));
+  }
+    
    
-    this.apollo
+  private getStockInfo(stockID: string) {
+    return this.apollo
       .watchQuery({
         query: gql`
         {
-          recentStocks {
-            stockCode: ID
+          getStock(id: "${stockID}") {
+            stockCode
             score
             stockPrice
             patrimonioLiquido
@@ -70,11 +75,8 @@ export class StockComponent implements OnInit {
       })
       .valueChanges
       .subscribe(
-        (result: ApolloQueryResult<{ recentStocks: IStock[] }>) => {
-          const stocks: IStock[] = result.data.recentStocks.sort((a, b) => b.score - a.score);
-          // this.dataSource = new MatTableDataSource(stocks);
-          // this.dataSource.sort = this.sort;
-          // this.showLoading = false;
+        (result: ApolloQueryResult<{ getStock: IStock }>) => {
+          this.stock = result.data.getStock;
         }
       )
   }
