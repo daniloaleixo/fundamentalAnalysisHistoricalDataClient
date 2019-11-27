@@ -17,7 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChipsComponent } from './components/chips/chips.component';
 import { RouterModule } from "@angular/router";
 import { HistoricAnalysisComponent } from './pages/historic-analysis/historic-analysis.component';
-import { RecentStocksComponent } from './pages/recent-stocks/recent-stocks.component'
+import { RecentStocksComponent } from './pages/recent-stocks/recent-stocks.component';
+import { StockComponent } from './pages/stock/stock.component'
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RecentStocksComponent } from './pages/recent-stocks/recent-stocks.compo
     AppComponent,
     ChipsComponent,
     HistoricAnalysisComponent,
-    RecentStocksComponent
+    RecentStocksComponent,
+    StockComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,7 @@ import { RecentStocksComponent } from './pages/recent-stocks/recent-stocks.compo
     RouterModule.forRoot([
       { path: 'recent', component: RecentStocksComponent },
       { path: 'historic', component: HistoricAnalysisComponent },
+      { path: 'stock/:stockCode', component: StockComponent },
       { path: '', redirectTo: '/recent', pathMatch: 'full' },
     ])
   ],
