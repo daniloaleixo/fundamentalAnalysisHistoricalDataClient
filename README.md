@@ -19,6 +19,7 @@ O projeto consiste de 4 projetos em repositórios separados:
 
 
 
+
 ## Análise 
 Estou fazendo uma análise baseada nos princípios fundamentalistas do livro [Investidor Inteligente](https://en.wikipedia.org/wiki/The_Intelligent_Investor) do Benjamin Graham:
 
